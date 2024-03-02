@@ -23,9 +23,9 @@
 hs_err_pid*
 replay_pid*
 
-/.vscode
+.vscode/
 *.jar.original
-/target
 */target/**
 /target/
+target/
 
