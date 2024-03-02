@@ -1,0 +1,3 @@
+com\pathfinder\presentation\frontcontroller\route\RouteControllerTest.class
+com\pathfinder\business\services\rutas\usecasesearch\UseCaseSearchImplTest.class
+com\pathfinder\PathFinderApplicationTests.class
