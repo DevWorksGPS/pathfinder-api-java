@@ -27,6 +27,9 @@ public class Ruta {
 	this.name = name;
 	this.ubicacion = ubicacion;
     }
-
+    
+    public RutaDTO toTransfer() {
+	return new RutaDTO(id, name, ubicacion);
+    }
     
 }
