@@ -15,9 +15,6 @@ public class RutaDTO {
     private String name;
     private String ubicacion;
 
-    public RutaDTO(int id, String name, String ubicacion) {
-		// TODO Auto-generated constructor stub
-	}
 
 }
 
