@@ -1,5 +1,7 @@
 package com.pathfinder.presentation.frontcontroller.route;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -42,6 +44,11 @@ class RouteControllerTest {
        this.rutaRepository.save(new Ruta("Ruta Dos", "Barcelona"));       
        this.rutaRepository.save(new Ruta("Ruta Tres", "Alicante"));       
        this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia"));     
+   }
+
+   @Test
+   void error() {
+	assertTrue(false);
    }
  
    @Test
