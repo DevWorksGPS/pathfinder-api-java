@@ -35,7 +35,10 @@ class RouteControllerTest {
    @BeforeAll
    public void setUp() {
        this.rutaRepository.deleteAll();
-       this.rutaRepository.save(new Ruta("Ruta Uno", "Madrid"));       
+       this.rutaRepository.save(new Ruta("Ruta Uno", "Madrid"));  
+       this.rutaRepository.save(new Ruta("Ruta Unoo", "Madrid"));       
+       this.rutaRepository.save(new Ruta("Ruta Unooo", "Madrid"));       
+       this.rutaRepository.save(new Ruta("Ruta Unoooo", "Madrid"));       
        this.rutaRepository.save(new Ruta("Ruta Dos", "Barcelona"));       
        this.rutaRepository.save(new Ruta("Ruta Tres", "Alicante"));       
        this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia"));     
@@ -54,19 +57,19 @@ class RouteControllerTest {
        
        this.mockMvc
       	.perform(
-	       get("/ruta/search?name=Ruta Uno")
+	       get("/ruta/search?ubicacion=Alicante")
 	       .contentType(MediaType.APPLICATION_JSON))
       	.andExpect(status().isOk())
       	.andExpect(content()
                .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
       	.andExpect(jsonPath("$", hasSize(1)))
-      	.andExpect(jsonPath("$[0].name").value("Ruta Uno"))
-      	.andExpect(jsonPath("$[0].id").value(1))
-     	.andExpect(jsonPath("$[0].ubicacion").value("Madrid"));
+      	.andExpect(jsonPath("$[0].name").value("Ruta Tres"))
+      	.andExpect(jsonPath("$[0].id").value(6))
+     	.andExpect(jsonPath("$[0].ubicacion").value("Alicante"));
        
        this.mockMvc
      	.perform(
-	       get("/ruta/search?name=Ruta")
+	       get("/ruta/search?ubicacion=Madrid")
 	       .contentType(MediaType.APPLICATION_JSON))
      	.andExpect(status().isOk())
      	.andExpect(content()
@@ -75,13 +78,13 @@ class RouteControllerTest {
      	.andExpect(jsonPath("$[0].name").value("Ruta Uno"))
      	.andExpect(jsonPath("$[0].id").value(1))
      	.andExpect(jsonPath("$[0].ubicacion").value("Madrid"))
-     	.andExpect(jsonPath("$[1].name").value("Ruta Dos"))
+     	.andExpect(jsonPath("$[1].name").value("Ruta Unoo"))
      	.andExpect(jsonPath("$[1].id").value(2))
-     	.andExpect(jsonPath("$[1].ubicacion").value("Barcelona"));
+     	.andExpect(jsonPath("$[1].ubicacion").value("Madrid"));
   
        this.mockMvc
     	.perform(
-	       get("/ruta/search?name=dont found name")
+	       get("/ruta/search?ubicacion=dont found name")
 	       .contentType(MediaType.APPLICATION_JSON))
     	.andExpect(status().isOk())
     	.andExpect(content()

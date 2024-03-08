@@ -6,6 +6,6 @@ import com.pathfinder.business.model.route.RutaDTO;
 
 public interface IUseCaseSearch {
 
-    List<RutaDTO> search(final String nameRoute);
+    List<RutaDTO> search(final String ubicacion);
     
 }

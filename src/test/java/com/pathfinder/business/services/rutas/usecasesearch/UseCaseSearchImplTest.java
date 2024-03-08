@@ -47,7 +47,7 @@ class UseCaseSearchImplTest {
     
     @Test 
     void searchEspicifNameRoute() {
-	List<RutaDTO> list = this.useCaseSearch.search("Ruta 1");
+	List<RutaDTO> list = this.useCaseSearch.search("Madrid");
 	assertTrue(list.size() > 0);
     }
 }

@@ -22,13 +22,13 @@ public class UseCaseSearchImpl implements IUseCaseSearch{
     
     @Override
     @Transactional
-    public List<RutaDTO> search(String nameRoute) {
+    public List<RutaDTO> search(String ubicacion) {
 	List<Ruta> listRuta = new ArrayList<>();
 	
-	if (StringUtils.isAllBlank(nameRoute))  
+	if (StringUtils.isAllBlank(ubicacion))  
 	    listRuta = this.rutaRepository.findAll();
 	else 
-	    listRuta = this.rutaRepository.findByNameContaining(nameRoute);
+	    listRuta = this.rutaRepository.findByUbicacionContaining(ubicacion);
 	
 	return listRuta
 		.stream()
