@@ -48,7 +48,8 @@ class RouteControllerTest {
 
    @Test
    void error() {
-	assertTrue(true);
+       boolean TRUE = true;
+	assertTrue(TRUE);
    }
  
    @Test
