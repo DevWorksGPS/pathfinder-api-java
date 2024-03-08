@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pathfinder.business.model.route.RutaDTO;
 import com.pathfinder.business.services.rutas.usecasesearch.IUseCaseSearch;
 
-import lombok.extern.log4j.Log4j2;
 
 
 @RestController
 @RequestMapping("/ruta")
-@Log4j2
 public class RouteController {
 
     private final IUseCaseSearch useCaseSearch;
@@ -28,8 +26,8 @@ public class RouteController {
     
     @GetMapping("/search")
     @ResponseBody
-    public List<RutaDTO> search(@RequestParam(required = false, defaultValue = "") String name) {
-	    return this.useCaseSearch.search(name);
+    public List<RutaDTO> search(@RequestParam(required = false, defaultValue = "") String ubicacion) {
+	    return this.useCaseSearch.search(ubicacion);
     }
    
 }
