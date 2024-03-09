@@ -11,10 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RutaDTO {
 	
-	private int id;
+    private int id;
     private String name;
     private String ubicacion;
-
 
 }
 
