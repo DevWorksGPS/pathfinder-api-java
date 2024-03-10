@@ -2,10 +2,7 @@ name: Configuration Test And Coverage Github Action
 
 on: 
   push:
-    branches-ignore:
-      - main
-      - master
-    pull_request:
+  pull_request:
       branches:
         - 'main'
         - 'develop'
