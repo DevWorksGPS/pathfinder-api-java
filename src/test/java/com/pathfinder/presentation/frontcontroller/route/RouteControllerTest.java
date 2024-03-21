@@ -53,13 +53,13 @@ class RouteControllerTest {
    @BeforeAll
    public void setUp() {
        this.rutaRepository.deleteAll();
-       this.rutaRepository.save(new Ruta("Ruta Uno", "Madrid"));  
-       this.rutaRepository.save(new Ruta("Ruta Unoo", "Madrid"));       
-       this.rutaRepository.save(new Ruta("Ruta Unooo", "Madrid"));       
-       this.rutaRepository.save(new Ruta("Ruta Unoooo", "Madrid"));       
-       this.rutaRepository.save(new Ruta("Ruta Dos", "Barcelona"));       
-       this.rutaRepository.save(new Ruta("Ruta Tres", "Alicante"));       
-       this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia"));  
+       this.rutaRepository.save(new Ruta("Ruta Uno", "Madrid", (float)40.5678, (float)-4.1234, (float)41.1234, (float)-4.5678));  
+       this.rutaRepository.save(new Ruta("Ruta Unoo", "Madrid", (float)41.5678, (float)-5.1234, (float)42.1234, (float)-5.5678));       
+       this.rutaRepository.save(new Ruta("Ruta Unooo", "Madrid", (float)39.5678, (float)-3.1234, (float)40.1234, (float)-3.5678));       
+       this.rutaRepository.save(new Ruta("Ruta Unoooo", "Madrid", (float)42.5678, (float)-4.5678, (float)43.1234, (float)-4.1234));       
+       this.rutaRepository.save(new Ruta("Ruta Dos", "Barcelona", (float)50.5678, (float)-1.1234, (float)51.1234, (float)-1.5678));       
+       this.rutaRepository.save(new Ruta("Ruta Tres", "Alicante", (float)49.5678, (float)-2.1234, (float)50.1234, (float)-2.5678));       
+       this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia", (float)51.5678, (float)-6.1234, (float)52.1234, (float)-6.5678));  
        this.rutaController = new RouteController(useCaseSearch, useCaseDetail);
    }
 
@@ -84,7 +84,11 @@ class RouteControllerTest {
       	.andExpect(jsonPath("$", hasSize(1)))
       	.andExpect(jsonPath("$[0].name").value("Ruta Tres"))
       	.andExpect(jsonPath("$[0].id").value(6))
-     	.andExpect(jsonPath("$[0].ubicacion").value("Alicante"));
+     	.andExpect(jsonPath("$[0].ubicacion").value("Alicante"))
+     	.andExpect(jsonPath("$[0].origenLatitud").value(49.5678))
+     	.andExpect(jsonPath("$[0].origenLongitud").value(-2.1234))
+     	.andExpect(jsonPath("$[0].destinoLatitud").value(50.1234))
+     	.andExpect(jsonPath("$[0].destinoLongitud").value(-2.5678));
        
        this.mockMvc
      	.perform(
@@ -97,9 +101,17 @@ class RouteControllerTest {
      	.andExpect(jsonPath("$[0].name").value("Ruta Uno"))
      	.andExpect(jsonPath("$[0].id").value(1))
      	.andExpect(jsonPath("$[0].ubicacion").value("Madrid"))
+     	.andExpect(jsonPath("$[0].origenLatitud").value(40.5678))
+     	.andExpect(jsonPath("$[0].origenLongitud").value(-4.1234))
+     	.andExpect(jsonPath("$[0].destinoLatitud").value(41.1234))
+     	.andExpect(jsonPath("$[0].destinoLongitud").value(-4.5678))
      	.andExpect(jsonPath("$[1].name").value("Ruta Unoo"))
      	.andExpect(jsonPath("$[1].id").value(2))
-     	.andExpect(jsonPath("$[1].ubicacion").value("Madrid"));
+     	.andExpect(jsonPath("$[1].ubicacion").value("Madrid"))
+     	.andExpect(jsonPath("$[1].origenLatitud").value(41.5678))
+     	.andExpect(jsonPath("$[1].origenLongitud").value(-5.1234))
+     	.andExpect(jsonPath("$[1].destinoLatitud").value(42.1234))
+     	.andExpect(jsonPath("$[1].destinoLongitud").value(-5.5678));
   
        this.mockMvc
     	.perform(
@@ -125,8 +137,28 @@ class RouteControllerTest {
 			   .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	   .andExpect(jsonPath("$.id").value(r.getId()))
 	   .andExpect(jsonPath("$.name").value(r.getName()))
-	   .andExpect(jsonPath("$.ubicacion").value(r.getUbicacion()));
+	   .andExpect(jsonPath("$.ubicacion").value(r.getUbicacion()))
+	   .andExpect(jsonPath("$.origenLatitud").value(r.getOrigenLatitud()))
+	   .andExpect(jsonPath("$.origenLongitud").value(r.getOrigenLongitud()))
+	   .andExpect(jsonPath("$.destinoLatitud").value(r.getDestinoLatitud()))
+	   .andExpect(jsonPath("$.destinoLongitud").value(r.getDestinoLongitud()));
 	   
+       List<RutaDTO> listaRuta = this.rutaController.search("Barcelona");       
+       assertFalse(listaRuta.isEmpty());
+       String endpoint1 = "/ruta/" + listaRuta.get(0).getId();
+       final RutaDTO r1 = listaRuta.get(0);
+       this.mockMvc.perform(get(endpoint1))
+	   .andExpect(status().isOk())
+	   .andExpect(content()
+			   .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	   .andExpect(jsonPath("$.id").value(r1.getId()))
+	   .andExpect(jsonPath("$.name").value(r1.getName()))
+	   .andExpect(jsonPath("$.ubicacion").value(r1.getUbicacion()))
+	   .andExpect(jsonPath("$.origenLatitud").value(r1.getOrigenLatitud()))
+	   .andExpect(jsonPath("$.origenLongitud").value(r1.getOrigenLongitud()))
+	   .andExpect(jsonPath("$.destinoLatitud").value(r1.getDestinoLatitud()))
+	   .andExpect(jsonPath("$.destinoLongitud").value(r1.getDestinoLongitud()));
+       
 	
    }
     
