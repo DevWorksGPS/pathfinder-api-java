@@ -34,8 +34,17 @@ public class Ruta {
 	this.ubicacion = ubicacion;
     }
     
-    
-    
+    public Ruta(String name, String ubicacion, float origenLatitud, float origenLongitud, float destinoLatitud,
+	    float destinoLongitud) {
+	super();
+	this.name = name;
+	this.ubicacion = ubicacion;
+	this.origenLatitud = origenLatitud;
+	this.origenLongitud = origenLongitud;
+	this.destinoLatitud = destinoLatitud;
+	this.destinoLongitud = destinoLongitud;
+    }
+        
     public RutaDTO toTransfer() {
         return RutaDTO.builder()
                         .id(this.id)
@@ -47,5 +56,4 @@ public class Ruta {
                         .destinoLongitud(this.destinoLongitud)
                         .build();
     }
-    
 }

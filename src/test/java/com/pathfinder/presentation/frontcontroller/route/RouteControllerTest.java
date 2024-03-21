@@ -45,7 +45,6 @@ class RouteControllerTest {
        this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia"));     
    }
 
- 
    @Test
    void searchRouteEndpoint() throws Exception {
        this.mockMvc
