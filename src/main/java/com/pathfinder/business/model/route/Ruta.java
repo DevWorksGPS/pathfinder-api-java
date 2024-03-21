@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,12 +15,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Ruta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String ubicacion;
+    private float origenLatitud;
+    private float origenLongitud;
+    private float destinoLatitud;
+    private float destinoLongitud;
     @Version
     private int version;
     
@@ -28,8 +34,26 @@ public class Ruta {
 	this.ubicacion = ubicacion;
     }
     
-    public RutaDTO toTransfer() {
-	return new RutaDTO(id, name, ubicacion);
+    public Ruta(String name, String ubicacion, float origenLatitud, float origenLongitud, float destinoLatitud,
+	    float destinoLongitud) {
+	super();
+	this.name = name;
+	this.ubicacion = ubicacion;
+	this.origenLatitud = origenLatitud;
+	this.origenLongitud = origenLongitud;
+	this.destinoLatitud = destinoLatitud;
+	this.destinoLongitud = destinoLongitud;
     }
-    
+        
+    public RutaDTO toTransfer() {
+        return RutaDTO.builder()
+                        .id(this.id)
+                        .name(this.name)
+                        .ubicacion(this.ubicacion)
+                        .origenLatitud(this.origenLatitud)
+                        .origenLongitud(this.origenLongitud)
+                        .destinoLatitud(this.destinoLatitud)
+                        .destinoLongitud(this.destinoLongitud)
+                        .build();
+    }
 }
