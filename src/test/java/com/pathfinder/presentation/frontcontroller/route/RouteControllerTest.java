@@ -94,5 +94,28 @@ class RouteControllerTest {
  
    
    }
+   
+   @Test
+   void getRutaTest() throws Exception {
+	   this.mockMvc.perform(get("/ruta/1"))
+	   .andExpect(status().isOk())
+	   .andExpect(content()
+			   .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	   .andExpect(jsonPath("$[0].id").value(1))
+	   .andExpect(jsonPath("$[0].name").value("Ruta Uno"))
+	   .andExpect(jsonPath("$[0].ubicacion").value("Madrid"));
+	   
+	   
+	   this.mockMvc
+     	.perform(
+	       get("/ruta/6"))
+     	.andExpect(status().isOk())
+     	.andExpect(content()
+              .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+     	.andExpect(jsonPath("$[0].id").value(6))
+     	.andExpect(jsonPath("$[0].name").value("Ruta Tres"))
+    	.andExpect(jsonPath("$[0].ubicacion").value("Alicante"));
+	   
+   }
     
 }
