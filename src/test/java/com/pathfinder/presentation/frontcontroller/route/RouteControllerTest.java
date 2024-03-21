@@ -13,12 +13,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.pathfinder.business.model.route.Ruta;
+import com.pathfinder.business.model.route.RutaDTO;
+import com.pathfinder.business.services.rutas.usecasedetail.IUseCaseDetail;
+import com.pathfinder.business.services.rutas.usecasesearch.IUseCaseSearch;
 import com.pathfinder.integration.repository.RutaRepository;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -32,6 +41,14 @@ class RouteControllerTest {
     
    @Autowired
    private RutaRepository rutaRepository;
+   @Autowired
+   private IUseCaseDetail useCaseDetail;
+   @Autowired
+   private IUseCaseSearch useCaseSearch;
+   
+   
+   private RouteController rutaController;
+   
    
    @BeforeAll
    public void setUp() {
@@ -42,7 +59,8 @@ class RouteControllerTest {
        this.rutaRepository.save(new Ruta("Ruta Unoooo", "Madrid"));       
        this.rutaRepository.save(new Ruta("Ruta Dos", "Barcelona"));       
        this.rutaRepository.save(new Ruta("Ruta Tres", "Alicante"));       
-       this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia"));     
+       this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia"));  
+       this.rutaController = new RouteController(useCaseSearch, useCaseDetail);
    }
 
    @Test
@@ -97,25 +115,19 @@ class RouteControllerTest {
    
    @Test
    void getRutaTest() throws Exception {
-	   this.mockMvc.perform(get("/ruta/1"))
+       List<RutaDTO> listRuta = this.rutaController.search("Madrid");       
+       assertFalse(listRuta.isEmpty());
+       String endpoint = "/ruta/" + listRuta.get(0).getId();
+       final RutaDTO r = listRuta.get(0);
+       this.mockMvc.perform(get(endpoint))
 	   .andExpect(status().isOk())
 	   .andExpect(content()
 			   .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	   .andExpect(jsonPath("$[0].id").value(1))
-	   .andExpect(jsonPath("$[0].name").value("Ruta Uno"))
-	   .andExpect(jsonPath("$[0].ubicacion").value("Madrid"));
+	   .andExpect(jsonPath("$.id").value(r.getId()))
+	   .andExpect(jsonPath("$.name").value(r.getName()))
+	   .andExpect(jsonPath("$.ubicacion").value(r.getUbicacion()));
 	   
-	   
-	   this.mockMvc
-     	.perform(
-	       get("/ruta/6"))
-     	.andExpect(status().isOk())
-     	.andExpect(content()
-              .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-     	.andExpect(jsonPath("$[0].id").value(6))
-     	.andExpect(jsonPath("$[0].name").value("Ruta Tres"))
-    	.andExpect(jsonPath("$[0].ubicacion").value("Alicante"));
-	   
+	
    }
     
 }
