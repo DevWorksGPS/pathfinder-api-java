@@ -20,6 +20,7 @@ public class RutaDTO {
     private float origenLongitud;
     private float destinoLatitud;
     private float destinoLongitud;
+    private float distanciaTotal;
 
 }
 
