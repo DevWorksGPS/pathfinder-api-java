@@ -37,7 +37,7 @@ class UseCaseDetailTest {
 	
 	@Test
 	void getRuta() {
-		this.rutaRepository.save(new Ruta("ruta1", "Madrid", (float)40.5678, (float)-4.1234, (float)41.1234, (float)-4.5678, (float)156));
+		this.rutaRepository.save(new Ruta("ruta1", "Madrid", (float)40.5678, (float)-4.1234, (float)41.1234, (float)-4.5678, (float)156, (float)180));
 		RutaDTO r = this.useCaseDetail.getRuta(0);
 		assertNull(r);
 		RutaDTO t = this.useCaseDetail.getRuta(-1);
@@ -54,6 +54,7 @@ class UseCaseDetailTest {
 		assertTrue(r3.getDestinoLatitud() == (float)41.1234);
 		assertTrue(r3.getDestinoLongitud() == (float)-4.5678);
 		assertTrue(r3.getDistanciaTotal() == (float)156);
+		assertTrue(r3.getDuracionTotal() == (float)180);
 
 
 	}

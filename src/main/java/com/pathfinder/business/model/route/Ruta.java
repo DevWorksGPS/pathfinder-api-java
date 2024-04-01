@@ -27,6 +27,7 @@ public class Ruta {
     private float destinoLatitud;
     private float destinoLongitud;
     private float distanciaTotal;
+    private float duracionTotal;
     @Version
     private int version;
     
@@ -55,6 +56,18 @@ public class Ruta {
     	this.destinoLatitud = destinoLatitud;
     	this.destinoLongitud = destinoLongitud;
     	this.distanciaTotal=distanciaTotal;
+     }
+    public Ruta(String name, String ubicacion, float origenLatitud, float origenLongitud, float destinoLatitud,
+    	    float destinoLongitud,float distanciaTotal,float duracionTotal) {
+    	super();
+    	this.name = name;
+    	this.ubicacion = ubicacion;
+    	this.origenLatitud = origenLatitud;
+    	this.origenLongitud = origenLongitud;
+    	this.destinoLatitud = destinoLatitud;
+    	this.destinoLongitud = destinoLongitud;
+    	this.distanciaTotal=distanciaTotal;
+    	this.duracionTotal=duracionTotal;
         }
         
     public RutaDTO toTransfer() {
@@ -67,6 +80,7 @@ public class Ruta {
                         .destinoLatitud(this.destinoLatitud)
                         .destinoLongitud(this.destinoLongitud)
                         .distanciaTotal(this.distanciaTotal)
+                        .duracionTotal(this.duracionTotal)
                         .build();
     }
 }
