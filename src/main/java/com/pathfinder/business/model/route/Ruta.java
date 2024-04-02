@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class Ruta {
     private float origenLongitud;
     private float destinoLatitud;
     private float destinoLongitud;
+    @Lob
+    private byte[] image;
     private float distanciaTotal;
     private float duracionTotal;
     @Version
@@ -79,6 +82,7 @@ public class Ruta {
                         .origenLongitud(this.origenLongitud)
                         .destinoLatitud(this.destinoLatitud)
                         .destinoLongitud(this.destinoLongitud)
+                        .image(this.image)
                         .distanciaTotal(this.distanciaTotal)
                         .duracionTotal(this.duracionTotal)
                         .build();
