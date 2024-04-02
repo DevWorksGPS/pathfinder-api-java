@@ -59,7 +59,8 @@ class RouteControllerTest {
        this.rutaRepository.save(new Ruta("Ruta Unoooo", "Madrid", (float)42.5678, (float)-4.5678, (float)43.1234, (float)-4.1234));       
        this.rutaRepository.save(new Ruta("Ruta Dos", "Barcelona", (float)50.5678, (float)-1.1234, (float)51.1234, (float)-1.5678, (float)155));       
        this.rutaRepository.save(new Ruta("Ruta Tres", "Alicante", (float)49.5678, (float)-2.1234, (float)50.1234, (float)-2.5678));       
-       this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia", (float)51.5678, (float)-6.1234, (float)52.1234, (float)-6.5678, (float)153, (float)195));  
+       this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia", (float)51.5678, (float)-6.1234, (float)52.1234, (float)-6.5678, (float)153, (float)195));
+       this.rutaRepository.save(new Ruta("Ruta Cinco", "Valencia", (float)53.5678, (float)-7.1234, (float)53.1234, (float)-7.5678, (float)158, (float)183));
        this.rutaController = new RouteController(useCaseSearch, useCaseDetail);
    }
 
@@ -177,6 +178,25 @@ class RouteControllerTest {
 	   .andExpect(jsonPath("$.destinoLongitud").value(r2.getDestinoLongitud()))
 	   .andExpect(jsonPath("$.distanciaTotal").value(r2.getDistanciaTotal()))
 	   .andExpect(jsonPath("$.duracionTotal").value(r2.getDuracionTotal()));
+       
+       List<RutaDTO> listaRuta2 = this.rutaController.search("Murcia");       
+       assertFalse(listaRuta2.isEmpty());
+       String endpoint3 = "/ruta/" + listaRuta2.get(0).getId();
+       final RutaDTO r3 = listaRuta2.get(0);
+       this.mockMvc.perform(get(endpoint3))
+	   .andExpect(status().isOk())
+	   .andExpect(content()
+			   .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	   .andExpect(jsonPath("$.id").value(r3.getId()))
+	   .andExpect(jsonPath("$.name").value(r3.getName()))
+	   .andExpect(jsonPath("$.ubicacion").value(r3.getUbicacion()))
+	   .andExpect(jsonPath("$.origenLatitud").value(r3.getOrigenLatitud()))
+	   .andExpect(jsonPath("$.origenLongitud").value(r3.getOrigenLongitud()))
+	   .andExpect(jsonPath("$.destinoLatitud").value(r3.getDestinoLatitud()))
+	   .andExpect(jsonPath("$.destinoLongitud").value(r3.getDestinoLongitud()))
+	   .andExpect(jsonPath("$.distanciaTotal").value(r3.getDistanciaTotal()))
+	   .andExpect(jsonPath("$.duracionTotal").value(r3.getDuracionTotal()))
+	   .andExpect(jsonPath("$.image").value(r3.getImage()));
        
 	
    }
