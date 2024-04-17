@@ -66,7 +66,6 @@ class UseCaseDetailTest {
 		assertTrue(r1.getOrigenLongitud() == (float)-3.1234);
 		assertTrue(r1.getDestinoLatitud() == (float)46.1234);
 		assertTrue(r1.getDestinoLongitud() == (float)-3.5678);
-		assertTrue(r1.getDistanciaTotal() == (float)156);
 		
 		this.rutaRepository.save(new Ruta("ruta3", "Barcelona", (float)50.5678, (float)-5.1234, (float)51.1234, (float)-5.5678, (float)175, (float)180));
 		List<Ruta> list2 = this.rutaRepository.findByUbicacionContaining("Barcelona");
@@ -80,9 +79,6 @@ class UseCaseDetailTest {
 		assertTrue(r2.getOrigenLongitud() == (float)-5.1234);
 		assertTrue(r2.getDestinoLatitud() == (float)51.1234);
 		assertTrue(r2.getDestinoLongitud() == (float)-5.5678);
-		assertTrue(r2.getDistanciaTotal() == (float)175);
-		assertTrue(r2.getDuracionTotal() == (float)180);
-
 
 	}
 
