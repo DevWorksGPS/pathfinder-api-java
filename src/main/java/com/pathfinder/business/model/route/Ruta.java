@@ -83,8 +83,6 @@ public class Ruta {
                         .destinoLatitud(this.destinoLatitud)
                         .destinoLongitud(this.destinoLongitud)
                         .image(this.image)
-                        .distanciaTotal(this.distanciaTotal)
-                        .duracionTotal(this.duracionTotal)
                         .build();
     }
 }

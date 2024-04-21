@@ -175,9 +175,7 @@ class RouteControllerTest {
 	   .andExpect(jsonPath("$.origenLatitud").value(r2.getOrigenLatitud()))
 	   .andExpect(jsonPath("$.origenLongitud").value(r2.getOrigenLongitud()))
 	   .andExpect(jsonPath("$.destinoLatitud").value(r2.getDestinoLatitud()))
-	   .andExpect(jsonPath("$.destinoLongitud").value(r2.getDestinoLongitud()))
-	   .andExpect(jsonPath("$.distanciaTotal").value(r2.getDistanciaTotal()))
-	   .andExpect(jsonPath("$.duracionTotal").value(r2.getDuracionTotal()));
+	   .andExpect(jsonPath("$.destinoLongitud").value(r2.getDestinoLongitud()));
        
        List<RutaDTO> listaRuta2 = this.rutaController.search("Murcia");       
        assertFalse(listaRuta2.isEmpty());
@@ -194,8 +192,6 @@ class RouteControllerTest {
 	   .andExpect(jsonPath("$.origenLongitud").value(r3.getOrigenLongitud()))
 	   .andExpect(jsonPath("$.destinoLatitud").value(r3.getDestinoLatitud()))
 	   .andExpect(jsonPath("$.destinoLongitud").value(r3.getDestinoLongitud()))
-	   .andExpect(jsonPath("$.distanciaTotal").value(r3.getDistanciaTotal()))
-	   .andExpect(jsonPath("$.duracionTotal").value(r3.getDuracionTotal()))
 	   .andExpect(jsonPath("$.image").value(r3.getImage()));
        
 	

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.pathfinder.business.model.route.Ruta;
 
 @Repository
-public interface RutaRepository extends JpaRepository<Ruta, Integer>{
+public interface RutaRepository extends JpaRepository<Ruta, Integer> {
     List<Ruta> findByUbicacionContaining(String ubicacion);
 }
