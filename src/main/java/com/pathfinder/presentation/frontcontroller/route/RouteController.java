@@ -37,8 +37,10 @@ public class RouteController {
     })
     public List<RutaDTO> search(
 	    @ApiParam(value = "Ubicacion para realizar la busqueda", defaultValue = "", example = "Madrid", required = false)
-	    @RequestParam(required = false, defaultValue = "") String ubicacion) {   
-	return this.useCaseSearch.search(ubicacion);
+	    @RequestParam(required = false, defaultValue = "") String ubicacion,
+	    @RequestParam(required = false, defaultValue = "0") int distanciaTotal
+	) {   
+	return this.useCaseSearch.search(ubicacion, distanciaTotal);
     }
 
     @GetMapping("/{id}")

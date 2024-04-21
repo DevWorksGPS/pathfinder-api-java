@@ -8,15 +8,15 @@ import javax.persistence.Lob;
 import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Ruta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,15 +1,11 @@
 package com.pathfinder.business.model.route;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class RutaDTO {
 	
@@ -21,7 +17,9 @@ public class RutaDTO {
     private float destinoLatitud;
     private float destinoLongitud;
     private byte[] image;
+    @JsonIgnore
     private float distanciaTotal;
+    @JsonIgnore
     private float duracionTotal;
 
 }

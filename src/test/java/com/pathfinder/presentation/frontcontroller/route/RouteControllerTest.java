@@ -61,6 +61,7 @@ class RouteControllerTest {
        this.rutaRepository.save(new Ruta("Ruta Tres", "Alicante", (float)49.5678, (float)-2.1234, (float)50.1234, (float)-2.5678));       
        this.rutaRepository.save(new Ruta("Ruta Cuatro", "Murcia", (float)51.5678, (float)-6.1234, (float)52.1234, (float)-6.5678, (float)153, (float)195));
        this.rutaRepository.save(new Ruta("Ruta Cinco", "Valencia", (float)53.5678, (float)-7.1234, (float)53.1234, (float)-7.5678, (float)158, (float)183));
+       this.rutaRepository.save(new Ruta("Ruta 6", "Valencia", (float)53.5678, (float)-7.1234, (float)53.1234, (float)-7.5678, (float)40, (float)150));
        this.rutaController = new RouteController(useCaseSearch, useCaseDetail);
    }
 
@@ -123,12 +124,29 @@ class RouteControllerTest {
              .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
     	.andExpect(jsonPath("$", hasSize(0)));
  
-   
+       this.mockMvc
+     	.perform(
+	       get("/ruta/search?ubicacion=Valencia&distanciaTotal=158")
+	       .contentType(MediaType.APPLICATION_JSON))
+     	.andExpect(status().isOk())
+     	.andExpect(content()
+              .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+     	.andExpect(jsonPath("$", hasSize(2)));
+       
+       this.mockMvc
+    	.perform(
+	       get("/ruta/search?ubicacion=Valencia&distanciaTotal=1")
+	       .contentType(MediaType.APPLICATION_JSON))
+    	.andExpect(status().isOk())
+    	.andExpect(content()
+             .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+    	.andExpect(jsonPath("$", hasSize(0)));
+      
    }
    
    @Test
    void getRutaTest() throws Exception {
-       List<RutaDTO> listRuta = this.rutaController.search("Madrid");       
+       List<RutaDTO> listRuta = this.rutaController.search("Madrid", 0);       
        assertFalse(listRuta.isEmpty());
        String endpoint = "/ruta/" + listRuta.get(0).getId();
        final RutaDTO r = listRuta.get(0);
@@ -144,7 +162,7 @@ class RouteControllerTest {
 	   .andExpect(jsonPath("$.destinoLatitud").value(r.getDestinoLatitud()))
 	   .andExpect(jsonPath("$.destinoLongitud").value(r.getDestinoLongitud()));
 	   
-       List<RutaDTO> listaRuta = this.rutaController.search("Barcelona");       
+       List<RutaDTO> listaRuta = this.rutaController.search("Barcelona", 0);       
        assertFalse(listaRuta.isEmpty());
        String endpoint1 = "/ruta/" + listaRuta.get(0).getId();
        final RutaDTO r1 = listaRuta.get(0);
@@ -158,10 +176,9 @@ class RouteControllerTest {
 	   .andExpect(jsonPath("$.origenLatitud").value(r1.getOrigenLatitud()))
 	   .andExpect(jsonPath("$.origenLongitud").value(r1.getOrigenLongitud()))
 	   .andExpect(jsonPath("$.destinoLatitud").value(r1.getDestinoLatitud()))
-	   .andExpect(jsonPath("$.destinoLongitud").value(r1.getDestinoLongitud()))
-	   .andExpect(jsonPath("$.distanciaTotal").value(r1.getDistanciaTotal()));
+	   .andExpect(jsonPath("$.destinoLongitud").value(r1.getDestinoLongitud()));
        
-       List<RutaDTO> listaRuta1 = this.rutaController.search("Murcia");       
+       List<RutaDTO> listaRuta1 = this.rutaController.search("Murcia", 0);       
        assertFalse(listaRuta1.isEmpty());
        String endpoint2 = "/ruta/" + listaRuta1.get(0).getId();
        final RutaDTO r2 = listaRuta1.get(0);
@@ -177,7 +194,7 @@ class RouteControllerTest {
 	   .andExpect(jsonPath("$.destinoLatitud").value(r2.getDestinoLatitud()))
 	   .andExpect(jsonPath("$.destinoLongitud").value(r2.getDestinoLongitud()));
        
-       List<RutaDTO> listaRuta2 = this.rutaController.search("Murcia");       
+       List<RutaDTO> listaRuta2 = this.rutaController.search("Murcia", 0);       
        assertFalse(listaRuta2.isEmpty());
        String endpoint3 = "/ruta/" + listaRuta2.get(0).getId();
        final RutaDTO r3 = listaRuta2.get(0);
