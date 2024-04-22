@@ -18,7 +18,7 @@ public class WebConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration  config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://pathfinderucm.web.app", "https://pathfinderucm.firebaseapp.com"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://pathfinderucm.web.app/", "https://pathfinderucm.firebaseapp.com/"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         source.registerCorsConfiguration("/**", config);
